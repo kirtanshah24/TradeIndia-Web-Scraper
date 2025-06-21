@@ -1,0 +1,20 @@
+ services:
+  - type: web
+    name: tradeindia-scraper-api
+    env: python
+    pythonVersion: "3.11"
+    buildCommand: pip install -r src/scraper/requirements.txt
+    startCommand: cd src/scraper && python api_server.py
+    envVars:
+      - key: SERPAPI_KEY
+        sync: false
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: false
+      - key: PORT
+        value: 10000
+      - key: CHROME_HEADLESS
+        value: true
+      - key: CHROME_NO_SANDBOX
+        value: true
