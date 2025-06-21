@@ -2,12 +2,13 @@ services:
   - type: web
     name: tradeindia-scraper-api
     env: python
-    pythonVersion: 3.11.7
+    pythonVersion: 3.11.7 # Or 3.12.x if that fixed your numpy issue
     buildCommand: pip install -r requirements.txt
-    startCommand: python Web-Scraper/src/scraper/backend/api_server.py
+    # Use Gunicorn for production Flask/Python APIs
+    startCommand: gunicorn Web-Scraper.scraper_backend.api_server:app --bind 0.0.0.0:$PORT
     envVars:
       - key: SERPAPI_KEY
-        sync: false
+        sync: false # Set in Render dashboard
       - key: FLASK_ENV
         value: production
       - key: FLASK_DEBUG
